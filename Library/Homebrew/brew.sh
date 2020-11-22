@@ -135,7 +135,17 @@ EOS
 # exceeds 3 seconds.
 update-preinstall-timer() {
   sleep 3
-  echo 'Updating Homebrew...' >&2
+  echo -n 'Updating Homebrew...' >&2
+  sleep 1
+  spinner=("   " ".  " ".. " "...")
+  while true
+  do
+    for i in "${spinner[@]}"
+    do
+      echo -ne "\b\b\b$i"
+      sleep 0.1
+    done
+  done
 }
 
 update-preinstall() {
@@ -187,13 +197,15 @@ update-preinstall() {
       timer_pid=$!
     fi
 
-    brew update --preinstall
+    report=$(HOMEBREW_COLOR=1 brew update --preinstall)
 
     if [[ -n "$timer_pid" ]]
     then
       kill "$timer_pid" 2>/dev/null
       wait "$timer_pid" 2>/dev/null
+      echo -e "\b\b\b..."
     fi
+    printf '%s\n\n' "$report"
 
     unset HOMEBREW_AUTO_UPDATING
 
