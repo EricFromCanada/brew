@@ -69,14 +69,6 @@ module Homebrew
           end.uniq
         end
 
-        # Checks the content at the URL for new versions, using the provided
-        # regex for matching.
-        #
-        # @param url [String] the URL of the content to check
-        # @param regex [Regexp] a regex used for matching versions in content
-        # @param provided_content [String] page content to use in place of
-        #   fetching via Strategy#page_content
-        # @return [Hash]
         sig {
           params(
             url:              String,
@@ -85,6 +77,14 @@ module Homebrew
             block:            T.nilable(T.proc.params(arg0: String).returns(T.any(T::Array[String], String))),
           ).returns(T::Hash[Symbol, T.untyped])
         }
+        # Checks the content at the URL for new versions, using the provided
+        # regex for matching.
+        #
+        # @param url [String] the URL of the content to check
+        # @param regex [Regexp] a regex used for matching versions in content
+        # @param provided_content [String] page content to use in place of
+        #   fetching via Strategy#page_content
+        # @return [Hash]
         def self.find_versions(url, regex, provided_content = nil, &block)
           match_data = { matches: {}, regex: regex, url: url }
 

@@ -117,12 +117,12 @@ module Homebrew
         headers
       end
 
+      sig { params(url: String).returns(T::Hash[Symbol, T.untyped]) }
       # Fetches the content at the URL and returns a hash containing the
       # content and, if there are any redirections, the final URL.
       #
       # @param url [String] the URL of the content to check
       # @return [Hash]
-      sig { params(url: String).returns(T::Hash[Symbol, T.untyped]) }
       def self.page_content(url)
         original_url = url
 

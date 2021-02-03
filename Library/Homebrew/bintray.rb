@@ -175,10 +175,10 @@ class Bintray
     end
   end
 
+  sig { params(repo: String, remote_file: String).returns(T.nilable(String)) }
   # Gets the SHA-256 checksum of the specified remote file.
   #
   # @return the checksum, the empty string (if the file doesn't have a checksum), nil (if the file doesn't exist)
-  sig { params(repo: String, remote_file: String).returns(T.nilable(String)) }
   def remote_checksum(repo:, remote_file:)
     url = "https://dl.bintray.com/#{@bintray_org}/#{repo}/#{remote_file}"
     result = curl_output "--fail", "--silent", "--head", url

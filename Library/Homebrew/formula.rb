@@ -1064,6 +1064,7 @@ class Formula
     end
   end
 
+  sig { overridable.returns(T.nilable(String)) }
   # Warn the user about any Homebrew-specific issues or quirks for this package.
   # These should not contain setup instructions that would apply to installation
   # through a different package manager on a different OS.
@@ -1083,7 +1084,6 @@ class Formula
   #   s += "Some issue only on older systems" if MacOS.version < :el_capitan
   #   s
   # end</pre>
-  sig { overridable.returns(T.nilable(String)) }
   def caveats
     nil
   end
